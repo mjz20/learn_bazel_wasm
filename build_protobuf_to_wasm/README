@@ -1,5 +1,12 @@
-this is a helloworld project to research how to convert a bazel c++ project to a wasm.
+this is a project to research how to convert a bazel c++ project to a wasm_cc_binary.
 
 There are two targets:
 - hello-world-wasm: very simple c++ binary to test a simple project
 - protobuf-wasm: wasm_cc_binary target to wrap protobuf for Proof of Concetp 
+
+How to run hello-world-wasm:
+- bazel build hello-world-wasm
+- node node bazel-bin/hello-world-wasm/hello-world.js
+
+How to run protobuf-wasm
+- todo
