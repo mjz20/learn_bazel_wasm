@@ -1,0 +1,3 @@
+[submodule "build_protobuf_wasm"]
+	path = build_protobuf_wasm
+	url = https://github.com/protocolbuffers/protobuf.git

@@ -29,8 +29,8 @@ emsdk_emscripten_deps()
 
 http_archive(
     name = "my_com_google_protobuf",
-    url = "https://github.com/protocolbuffers/protobuf/archive/refs/tags/v3.21.1.zip",
-    sha256 = "2d9084d3dd13b86ca2e811d2331f780eb86f6d7cb02b405426e3c80dcbfabf25",
+    url = "https://github.com/protocolbuffers/protobuf/archive/refs/heads/main.zip",
+    sha256 = "b79363921894a44278e02bafb855ef6de3fc77544beb7bcb149e3d830a407c45",
 )
 
 http_archive(

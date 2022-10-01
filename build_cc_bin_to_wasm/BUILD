@@ -12,8 +12,8 @@ wasm_cc_binary(
 )
 
 wasm_cc_binary(
-    name = "protobuf",
-    cc_target = "@my_com_google_protobuf//src/google/protobuf:protobuf",
+    name = "protobuf-wasm",
+    cc_target = "@my_com_google_protobuf//protoc",
 )
 
 cc_binary(
