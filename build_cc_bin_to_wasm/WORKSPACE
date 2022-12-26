@@ -1,40 +1,33 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
-load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
+
+# https://abseil.io/docs/cpp/quickstart#set-up-a-bazel-workspace-to-work-with-abseil
+# absl needs this
+http_archive(
+  name = "bazel_skylib",
+  urls = ["https://github.com/bazelbuild/bazel-skylib/releases/download/1.2.1/bazel-skylib-1.2.1.tar.gz"],
+  sha256 = "f7be3474d42aae265405a592bb7da8e171919d74c16f082a5457840f06054728",
+)
 
 http_archive(
-    name = "rules_proto",
-    sha256 = "e017528fd1c91c5a33f15493e3a398181a9e821a804eb7ff5acdd1d2d6c2b18d",
-    strip_prefix = "rules_proto-4.0.0-3.20.0",
-    urls = [
-        "https://github.com/bazelbuild/rules_proto/archive/refs/tags/4.0.0-3.20.0.tar.gz",
-    ],
+  name = "com_google_absl",
+  urls = ["https://github.com/abseil/abseil-cpp/archive/98eb410c93ad059f9bba1bf43f5bb916fc92a5ea.zip"],
+  strip_prefix = "abseil-cpp-98eb410c93ad059f9bba1bf43f5bb916fc92a5ea",
 )
-load("@rules_proto//proto:repositories.bzl", "rules_proto_dependencies", "rules_proto_toolchains")
-rules_proto_dependencies()
-rules_proto_toolchains()
 
-load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 http_archive(
     name = "emsdk",
-    strip_prefix = "emsdk-c1589b55641787d55d53e883852035beea9aec3f/bazel",
-    url = "https://github.com/emscripten-core/emsdk/archive/c1589b55641787d55d53e883852035beea9aec3f.tar.gz",
-    sha256 = "7a58a9996b113d3e0675df30b5f17e28aa47de2e684a844f05394fe2f6f12e8e",
+    #this can be generated from the tar file
+    sha256 = "b8270749b99d8d14922d1831b93781a5560fba6f7bce65cd477fc1b6aa262535",
+    strip_prefix = "emsdk-3.1.28/bazel",
+    url = "https://github.com/emscripten-core/emsdk/archive/refs/tags/3.1.28.tar.gz",
 )
 
 load("@emsdk//:deps.bzl", emsdk_deps = "deps")
 emsdk_deps()
 
 load("@emsdk//:emscripten_deps.bzl", emsdk_emscripten_deps = "emscripten_deps")
-emsdk_emscripten_deps()
+#this version should be aligned with the version from above
+emsdk_emscripten_deps(emscripten_version = "3.1.28")
 
-http_archive(
-    name = "my_com_google_protobuf",
-    url = "https://github.com/protocolbuffers/protobuf/archive/refs/heads/main.zip",
-    sha256 = "b79363921894a44278e02bafb855ef6de3fc77544beb7bcb149e3d830a407c45",
-)
-
-http_archive(
-    name = "absl",
-    strip_prefix = "abseil-cpp-master",
-    urls = ["https://github.com/abseil/abseil-cpp/archive/master.zip"],
-)
+load("@emsdk//:toolchains.bzl", "register_emscripten_toolchains")
+register_emscripten_toolchains()
