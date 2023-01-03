@@ -9,12 +9,6 @@ http_archive(
 )
 
 http_archive(
-  name = "com_google_absl",
-  urls = ["https://github.com/abseil/abseil-cpp/archive/98eb410c93ad059f9bba1bf43f5bb916fc92a5ea.zip"],
-  strip_prefix = "abseil-cpp-98eb410c93ad059f9bba1bf43f5bb916fc92a5ea",
-)
-
-http_archive(
     name = "emsdk",
     #this can be generated from the tar file
     sha256 = "b8270749b99d8d14922d1831b93781a5560fba6f7bce65cd477fc1b6aa262535",
@@ -33,7 +27,18 @@ load("@emsdk//:toolchains.bzl", "register_emscripten_toolchains")
 register_emscripten_toolchains()
 
 http_archive(
-    name = "my_com_google_protobuf",
-    url = "https://github.com/protocolbuffers/protobuf/archive/refs/heads/main.zip",
-    sha256 = "b79363921894a44278e02bafb855ef6de3fc77544beb7bcb149e3d830a407c45",
+  name = "com_google_googletest",
+  urls = ["https://github.com/google/googletest/archive/5ab508a01f9eb089207ee87fd547d290da39d015.zip"],
+  strip_prefix = "googletest-5ab508a01f9eb089207ee87fd547d290da39d015",
 )
+
+http_archive(
+    name = "com_google_protobuf",
+    url = "https://github.com/protocolbuffers/protobuf/releases/download/v21.10/protobuf-cpp-3.21.10.zip",
+    sha256 = "dba279f8baf3588338c35f0104d659ec285c82d97216ed6c02f601ba725f970a",
+    strip_prefix = "protobuf-main"
+)
+
+load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
+
+protobuf_deps()

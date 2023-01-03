@@ -40,11 +40,10 @@ cc_binary(
 )
 
 
-#this does not work due to many pthread compile and link issues
 # no-deprecated-builtins to skip warning
-# bazel build hello-world-with-absl-wasm --copt="-Wno-deprecated-builtins" --sandbox_debug
-# todo fix: 
-#err-1: --shared-memory is disallowed by raw_logging.o because it was not compiled with 'atomics' or 'bulk-memory' features.
+# build:
+# clear&bazel build hello-world-with-absl-wasm --copt="-Wno-deprecated-builtins" --copt="-pthread" --linkopt="-pthread"
+# node --experimental-wasm-threads --experimental-wasm-bulk-memory bazel-bin/hello-world-with-absl-wasm/hello-world-with-absl.js
 wasm_cc_binary(
     name = "hello-world-with-absl-wasm",
     cc_target = ":hello-world-with-absl",
