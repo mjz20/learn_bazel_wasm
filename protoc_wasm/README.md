@@ -11,5 +11,11 @@ external/com_google_absl/absl/hash/internal/low_level_hash.h:44:38: note: previo
 I think the reason maybe because the order of copt, to reproduce: 
 
 ```
-bazel build  --action_env=BAZEL_CXXOPTS="-std=c++17" --copt=-Wno-array-parameter --copt=-Wno-deprecated-builtins --copt=-Wno-deprecated-non-prototype --copt=-Wno-unused-function protoc-wasm --sandbox_debug 2>&1|tee /tmp/build.log
+bazel build  --action_env=BAZEL_CXXOPTS="-std=c++17" --copt=-Wno-array-parameter --copt=-Wno-deprecated-builtins --copt=-Wno-deprecated-non-prototype --copt=-Wno-unused-function --copt="-pthread" --linkopt="-pthread"  protoc-wasm --sandbox_debug 2>&1|tee /tmp/build.log
+```
+
+Workaround:
+follow [readme](https://github.com/mjz20/protobuf_wasm#how-to-build), it will fix all the build issues, after you can run:
+```
+node --experimental-wasm-threads --experimental-wasm-bulk-memory  bazel-bin/protoc-wasm/protoc.js
 ```
